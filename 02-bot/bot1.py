@@ -16,4 +16,4 @@ class MyClient(discord.Client):
             await message.channel.send("piir käib vastu Hiina müüri!")
             
 client = MyClient()
-client.run('ODQ2MTIzMzY4OTM5OTEzMzA2.YKq7yw.3FYMlGN775hc7a3yz-64H5X9QKQ')
+client.run('token')
