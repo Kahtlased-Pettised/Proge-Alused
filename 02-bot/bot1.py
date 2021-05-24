@@ -30,12 +30,13 @@ muusika_käsk = "muusika"
 faktid_käsk = "fakt"
 küsimus_käsk = "küs"
 uudis_käsk = "uut"
+sus_käsk = "sus"
 
 #Tekitab klassi, millega logib Discordi sisse, ehk startup.
 #Paneb endale staatuse ja kinnitab sisse logimist.
 class MyClient(discord.Client):
     async def on_ready(self):
-        await client.change_presence(activity=discord.Game(märk + 'info'))
+        await client.change_presence(activity=discord.Game(märk + info_käsk))
         print('Logged on as', self.user)
         
     #Kui saab sõnumi käivita alumine kood.
@@ -104,10 +105,18 @@ class MyClient(discord.Client):
                 print("Saadan meme'i")
                 await message.channel.send(random.choice(lingid))
            
-        #Muusika
+        #Sus
+        if message.content == märk + sus_käsk:
+                await message.delete()
+                print("Sõnum kustutatud")
+                await message.channel.send("https://cdn.discordapp.com/attachments/846444798264213534/846466774236528710/boo7iriaha071.png")
+                print("Petis saadetud")
+           
+           
+        #Muusika(saadab lingi)
                 
                 
-        #Faktid
+        #Faktid(Eestist ja Pätsist)
                 
                 
         #Tuleviku ennustamine(JAH;EI vastused näiteks)
@@ -116,6 +125,10 @@ class MyClient(discord.Client):
         #Äratuskell
         #Kasutaja kasutab käsku, et Päts saaks aru mida saata.
         #Päts saadab soovitud teksti(või ka pildi, kui õnnestub), mingil suvalisel tunnil(saab ka, et iga tund mingi protsent väärtus).
+        
+        
+        #Mingi API funktsioon
+        #Töötab nagu meme käsk, aga kasutades välist API'd ja infot.
                 
         
 #Kasutab tookenid, et boti sisse saada.
