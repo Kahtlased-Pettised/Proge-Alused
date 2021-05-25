@@ -8,10 +8,11 @@
 import discord
 import random
 import time
+import datetime
      
 #Tooken
 #VÕTA TOOKEN ENNE PUSH'IMIST ÄRA!!! MUIDU DISCORD KARJUB JÄLLE!!!
-token = "token" #TOOKEN AAAAAAAAAAAAAAAA
+token = "ODQ2MTIzMzY4OTM5OTEzMzA2.YKq7yw.t7zB-dPyx6YT7eq887egJPPNeLE" #TOOKEN AAAAAAAAAAAAAAAA
 #VÕTA TOOKEN ENNE PUSH'IMIST ÄRA!!! MUIDU DISCORD KARJUB JÄLLE!!!
 
 #Muutujad.
@@ -25,12 +26,14 @@ abi_käsk = "abi"
 ping_käsk = "ping"
 meme_käsk = "meme"
 rindele_käsk = "rindele"
-muusika_käsk = "muusika"
-äratuskell_käsk = "kell"
-faktid_käsk = "fakt"
-küsimus_käsk = "küs"
-uudis_käsk = "uut"
+muusika_käsk = "muusika" #POOLELI
+äratuskell_käsk = "äratus" #POOLELI
+faktid_käsk = "fakt" #POOLELI
+küsimus_käsk = "küs" #POOLELI
+uudis_käsk = "uudised"
 sus_käsk = "sus"
+elagu_käsk = "elagu" #POOLELI
+abort_käsk = "abort" #POOLELI
 
 #Tekitab klassi, millega logib Discordi sisse, ehk startup.
 #Paneb endale staatuse ja kinnitab sisse logimist.
@@ -45,6 +48,17 @@ class MyClient(discord.Client):
         if message.author == self.user:
             return
         
+        global kella_soovija
+        global saadetud_käsk
+        
+        global kell
+        global äratus_sisu
+        global äratus_aeg
+        
+        #kella_soovija = "test"
+        #saadetud_käsk = "test"
+        kell = False
+        
         #Prindib kes saatis sõnumi, kunas, kuhu kohta ja mis oli sõnum.
         print(str(message.author) + " / " + str(message.created_at) + " / " + str(message.channel.name) + " / " + str(message.content) + " / ")
         
@@ -57,10 +71,11 @@ class MyClient(discord.Client):
         if message.content == märk + uudis_käsk:
             print("Saadan uudiseid")
             await message.channel.send("Teataja uudised: ")
-            await message.channel.send("Bot versioon 0.3")
+            await message.channel.send("Bot versioon 0.3.2")
             await message.channel.send("1. Lisatud uudiste funktsioon")
             await message.channel.send("2. Rohkem meme")
             await message.channel.send("3. Päts suudab tuvastada, kuna temast räägitakse ja vastab sellele")
+            await message.channel.send("4. Pätsil on paar salajat koodi, püüa need leida")
             await message.channel.send("*Viimati muudetud 24.05.21*")
         
         #Annab infot boti kohta.
@@ -68,7 +83,7 @@ class MyClient(discord.Client):
             print("Saadan infot")
             #await message.add_reaction("U+1F35E")
             await message.channel.send("Olen kõikvõimas Konstatin Päts, Teie teenistuses.")
-            await message.channel.send("Postitan häid ehtsaid Eesti meme', ennustan tulevikku, jagan muusikat ja palju veel!")
+            await message.channel.send("Postitan häid ehtsaid Eesti meme', jagan tarkust ja kaitsen Eesti Vabariiki!")
             await message.channel.send("Kirjuta " + märk + abi_käsk + " , et saada käske.")
             await message.channel.send("NB! Olen ikka veel arengu faasis.")
             
@@ -81,6 +96,13 @@ class MyClient(discord.Client):
             await message.channel.send(märk + uudis_käsk + " - Mis uut Pätsiga.")
             #await message.channel.send("p!rindele - Ättib kõike.)
             await message.channel.send(märk + meme_käsk + " - Saadab Eesti meme'.")
+            await message.channel.send(märk + äratus_käsk + " - Saadab äratuse sulle tunni aja pärast.")
+            #await message.channel.send(märk + fakt_käsk + " - Saadab mõnusa fakti sulle.")
+            #await message.channel.send(märk + küs_käsk + " - Saad küsida Pätsi käest sõnumi.")
+            #await message.channel.send(märk + muusika_käsk + " - Saadab Eesti muusikat.")
+
+
+
             
         #Kontrollib igat sõnumit, kas sõna "päts"(või ka mingi teine sõna) on sees, ja ka vastab sellele(või midagi muud).
         if paha_sõna in message.content.lower():
@@ -125,14 +147,41 @@ class MyClient(discord.Client):
         #Äratuskell
         #Kasutaja kasutab käsku, et Päts saaks aru mida saata.
         #Päts saadab soovitud teksti(või ka pildi, kui õnnestub), mingil suvalisel tunnil(saab ka, et iga tund mingi protsent väärtus).
-        
-        
+        """if message.content == märk + äratuskell_käsk:
+            kella_soovija = message.author
+            saadetud_käsk = message.created_at
+            
+            print("Äratuskella käsk")
+            print(kella_soovija)
+            print(message.created_at)
+            
+            kell = True
+            print(kell)
+            await message.send("Järgmine sõnum on Teie äratuse sisu.")
+            
+        if kell == True:
+            if message.created_at > saadetud_käsk and message.author == kella_soovija:
+                print(str(kella_soovija) + " soovib äratust")
+                sleep(1000)
+                await message.reply("Saadan selle sõnumi tunni pärast")
+                äratus_sisu = message.content
+                #äratuse_aeg = """
         #Mingi API funktsioon
         #Töötab nagu meme käsk, aga kasutades välist API'd ja infot.
-                
+            
+        
+        #Abort käsk
+        if message.content == märk + abort_käsk: # and message.author == "Tihke Päts#8878":
+            await message.delete()
+            #await message.reply("On algamas tõeline Vaikiv Ajastu.")
+            print("ABORT!")
+            print("Väljun programmist")
+            exit()
+        
+        
         
 #Kasutab tookenid, et boti sisse saada.
 client = MyClient()
 client.run(token)
 
-#Koodi lõpp. ):
+#Koodi lõpp.
