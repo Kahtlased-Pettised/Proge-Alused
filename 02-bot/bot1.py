@@ -12,7 +12,7 @@ import datetime
      
 #Tooken
 #VÕTA TOOKEN ENNE PUSH'IMIST ÄRA!!! MUIDU DISCORD KARJUB JÄLLE!!!
-token = "token" #TOOKEN AAAAAAAAAAAAAAAA
+token = "tooken" #TOOKEN AAAAAAAAAAAAAAAA
 #VÕTA TOOKEN ENNE PUSH'IMIST ÄRA!!! MUIDU DISCORD KARJUB JÄLLE!!!
 
 #Muutujad.
@@ -29,7 +29,7 @@ rindele_käsk = "rindele"
 muusika_käsk = "muusika" #POOLELI
 äratuskell_käsk = "äratus" #POOLELI
 faktid_käsk = "fakt" #POOLELI
-küsimus_käsk = "küs" #POOLELI
+küs_käsk = "k" 
 uudis_käsk = "uudised"
 sus_käsk = "sus"
 elagu_käsk = "elagu" #POOLELI
@@ -48,7 +48,7 @@ class MyClient(discord.Client):
         if message.author == self.user:
             return
         
-        global kella_soovija
+        """global kella_soovija
         global saadetud_käsk
         
         global kell
@@ -57,7 +57,7 @@ class MyClient(discord.Client):
         
         #kella_soovija = "test"
         #saadetud_käsk = "test"
-        kell = False
+        kell = False"""
         
         #Prindib kes saatis sõnumi, kunas, kuhu kohta ja mis oli sõnum.
         print(str(message.author) + " / " + str(message.created_at) + " / " + str(message.channel.name) + " / " + str(message.content) + " / ")
@@ -70,13 +70,14 @@ class MyClient(discord.Client):
         #Annab kasutajale teada, mis on uut Pätsiga.
         if message.content == märk + uudis_käsk:
             print("Saadan uudiseid")
-            await message.channel.send("Teataja uudised: ")
-            await message.channel.send("Bot versioon 0.3.2")
-            await message.channel.send("1. Lisatud uudiste funktsioon")
-            await message.channel.send("2. Rohkem meme")
-            await message.channel.send("3. Päts suudab tuvastada, kuna temast räägitakse ja vastab sellele")
-            await message.channel.send("4. Pätsil on paar salajat koodi, püüa need leida")
-            await message.channel.send("*Viimati muudetud 24.05.21*")
+            await message.channel.send("""
+Teataja uudised: 
+1.Oskab küsimustele vastata
+
+(*Viimati muudetud 25.05.21*)
+                                        """)
+            
+            
         
         #Annab infot boti kohta.
         if message.content == märk + info_käsk: #and message.channel.name == peamine_channel:
@@ -96,9 +97,9 @@ class MyClient(discord.Client):
             await message.channel.send(märk + uudis_käsk + " - Mis uut Pätsiga.")
             #await message.channel.send("p!rindele - Ättib kõike.)
             await message.channel.send(märk + meme_käsk + " - Saadab Eesti meme'.")
-            await message.channel.send(märk + äratus_käsk + " - Saadab äratuse sulle tunni aja pärast.")
+            #await message.channel.send(märk + äratus_käsk + " - Saadab äratuse sulle tunni aja pärast.")
             #await message.channel.send(märk + fakt_käsk + " - Saadab mõnusa fakti sulle.")
-            #await message.channel.send(märk + küs_käsk + " - Saad küsida Pätsi käest sõnumi.")
+            await message.channel.send(märk + küs_käsk + " - Saad küsida Pätsi käest sõnumi.")
             #await message.channel.send(märk + muusika_käsk + " - Saadab Eesti muusikat.")
 
 
@@ -141,7 +142,7 @@ class MyClient(discord.Client):
         #Faktid(Eestist ja Pätsist)
                 
                 
-        #Tuleviku ennustamine(JAH;EI vastused näiteks)
+        
                 
                 
         #Äratuskell
@@ -177,6 +178,11 @@ class MyClient(discord.Client):
             print("ABORT!")
             print("Väljun programmist")
             exit()
+            
+        #Küsimuste vastaja
+        if message.content.startswith("p!k "):
+            print("Saadan vastuse")
+            await message.reply(random.choice(["Jah","Ei kindlasti, oled loll","Võibolla","loll küsimus, ei vasta"]))
         
         
         
