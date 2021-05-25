@@ -10,9 +10,10 @@ import random
 import time
 import datetime
      
-#Tooken
+#Autentimistooken
+
 #VÕTA TOOKEN ENNE PUSH'IMIST ÄRA!!! MUIDU DISCORD KARJUB JÄLLE!!!
-token = "tooken" #TOOKEN AAAAAAAAAAAAAAAA
+token = "token" #TOOKEN AAAAAAAAAAAAAAAA
 #VÕTA TOOKEN ENNE PUSH'IMIST ÄRA!!! MUIDU DISCORD KARJUB JÄLLE!!!
 
 #Muutujad.
@@ -39,7 +40,7 @@ abort_käsk = "abort" #POOLELI
 #Paneb endale staatuse ja kinnitab sisse logimist.
 class MyClient(discord.Client):
     async def on_ready(self):
-        await client.change_presence(activity=discord.Game(märk + info_käsk))
+        await client.change_presence(activity=discord.Game(märk + abi_käsk))
         print('Logged on as', self.user)
         
     #Kui saab sõnumi käivita alumine kood.
@@ -77,34 +78,29 @@ Teataja uudised:
 (*Viimati muudetud 25.05.21*)
                                         """)
             
-            
-        
         #Annab infot boti kohta.
         if message.content == märk + info_käsk: #and message.channel.name == peamine_channel:
             print("Saadan infot")
             #await message.add_reaction("U+1F35E")
-            await message.channel.send("Olen kõikvõimas Konstatin Päts, Teie teenistuses.")
-            await message.channel.send("Postitan häid ehtsaid Eesti meme', jagan tarkust ja kaitsen Eesti Vabariiki!")
-            await message.channel.send("Kirjuta " + märk + abi_käsk + " , et saada käske.")
-            await message.channel.send("NB! Olen ikka veel arengu faasis.")
+            await message.channel.send("""
+Olen kõikvõimas Konstatin Päts, Teie teenistuses.
+Postitan häid ehtsaid Eesti meme', jagan tarkust ja kaitsen Eesti Vabariiki!
+Kirjuta """ + märk + abi_käsk + """ , et saada käske.
+NB! Olen ikka veel arengu faasis.
+""")
             
         #Annab nimekirja käskedest.
         if message.content == märk + abi_käsk:
             print("Saadan abi")
-            await message.channel.send("Käskude nimekiri: ")
-            await message.channel.send(märk + info_käsk + " - Saadab Pätsi boti kohta infot.")
-            await message.channel.send(märk + abi_käsk + " - Saadab käskude nimekirja.")
-            await message.channel.send(märk + uudis_käsk + " - Mis uut Pätsiga.")
-            #await message.channel.send("p!rindele - Ättib kõike.)
-            await message.channel.send(märk + meme_käsk + " - Saadab Eesti meme'.")
-            #await message.channel.send(märk + äratus_käsk + " - Saadab äratuse sulle tunni aja pärast.")
-            #await message.channel.send(märk + fakt_käsk + " - Saadab mõnusa fakti sulle.")
-            await message.channel.send(märk + küs_käsk + " - Saad küsida Pätsi käest sõnumi.")
-            #await message.channel.send(märk + muusika_käsk + " - Saadab Eesti muusikat.")
+            await message.channel.send("""
+Käsud:
+""" + märk + info_käsk + """ - Saadab Pätsi boti kohta infot.
+""" + märk + abi_käsk + """ - Saadab käskude nimekirja.
+""" + märk + uudis_käsk + """ - Mis uut Pätsiga.
+""" + märk + meme_käsk + """ - Saadab Eesti meme'.
+""" + märk + küs_käsk + """ - Saad küsida Pätsi käest küsimuse.
+""")
 
-
-
-            
         #Kontrollib igat sõnumit, kas sõna "päts"(või ka mingi teine sõna) on sees, ja ka vastab sellele(või midagi muud).
         if paha_sõna in message.content.lower():
             print("Tuvastasin Pätsi")
@@ -113,10 +109,12 @@ Teataja uudised:
             
         #Käsk, kus äratab kõiki ülesse ja saadab video.
         if message.content == märk + rindele_käsk:
+            await message.delete()
             print("Saadan kõik Eesti noored rindele")
-            await message.channel.send("@everyone")
-            await message.channel.send("Tiblad ründavad üle Narva jõe!")
-            await message.channel.send("Rindele!")
+            await message.channel.send("""
+Tiblad ründavad üle Narva Jõe!
+Rindele!
+""")
             await message.channel.send("https://cdn.discordapp.com/attachments/625673801627336714/846393632365215764/redditsave.com-wake_up_time-rq1m3f8an9h61.mp4")
             
         #Postitab meme'i.
@@ -129,22 +127,19 @@ Teataja uudised:
                 await message.channel.send(random.choice(lingid))
            
         #Sus
-        if message.content == märk + sus_käsk:
+        """if message.content == märk + sus_käsk:
                 await message.delete()
                 print("Sõnum kustutatud")
                 await message.channel.send("https://cdn.discordapp.com/attachments/846444798264213534/846466774236528710/boo7iriaha071.png")
-                print("Petis saadetud")
+                print("Petis saadetud")"""
            
            
         #Muusika(saadab lingi)
                 
-                
+            
         #Faktid(Eestist ja Pätsist)
                 
-                
         
-                
-                
         #Äratuskell
         #Kasutaja kasutab käsku, et Päts saaks aru mida saata.
         #Päts saadab soovitud teksti(või ka pildi, kui õnnestub), mingil suvalisel tunnil(saab ka, et iga tund mingi protsent väärtus).
@@ -180,9 +175,9 @@ Teataja uudised:
             exit()
             
         #Küsimuste vastaja
-        if message.content.startswith("p!k "):
+        if message.content.startswith("p!k ") and message.content.endswith("?"):
             print("Saadan vastuse")
-            await message.reply(random.choice(["Jah","Ei kindlasti, oled loll","Võibolla","loll küsimus, ei vasta"]))
+            await message.reply(random.choice(["Jah","Loomulikult mitte","Võibolla","Loll küsimus, ei vasta", "Tahad vangi minna või?", ";)"]))
         
         
         
