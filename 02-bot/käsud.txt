@@ -1,0 +1,7 @@
+"info", "Saadab Pätsi kohta infot"
+"abi", "Saadab olemas olevad käsud"
+"uudised", "Saadab mis on uut Pätsiga"
+"meme", "Saadab suvalise meme'i"
+"rindele", "Saadab Eesti noored rindele"
+"kas", "vastab järgevale küsimusele", ".kas <küsimus>"
+"sus", """"kui lauses on fraas "sus""""", "Nt: valit**sus**"
