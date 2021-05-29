@@ -13,7 +13,7 @@ import datetime
 #Autentimistooken
 
 #VÕTA TOOKEN ENNE PUSH'IMIST ÄRA!!! MUIDU DISCORD KARJUB JÄLLE!!!
-token = "token" #TOOKEN AAAAAAAAAAAAAAAA
+token = "ODQ2MTIzMzY4OTM5OTEzMzA2.YKq7yw.hhke1b2n_Lx55V9os7bD2GGsc0Q" #TOOKEN AAAAAAAAAAAAAAAA
 #VÕTA TOOKEN ENNE PUSH'IMIST ÄRA!!! MUIDU DISCORD KARJUB JÄLLE!!!
 
 #Muutujad.
@@ -37,6 +37,7 @@ elagu_käsk = "elagu" #POOLELI
 abort_käsk = "abort" #POOLELI
 bread_käsk = "bread"
 susmeme_käsk = "amogus"
+räägi_käsk = "r"
 
 #Tekitab klassi, millega logib Discordi sisse, ehk startup.
 #Paneb endale staatuse ja kinnitab sisse logimist.
@@ -75,12 +76,10 @@ class MyClient(discord.Client):
             print("Saadan uudiseid")
             await message.channel.send("""
 Teataja uudised: 
-1.Saadab amogus meeme.
-2.Teksti parandused.
-3.Tuvastab sus-i.
-4.Saadab leiva meemi.
+1. Oskab rääkida teksti
+2. Oskab vastata erinevatele küsimustele
 
-(*Viimati muudetud 26.05.21*)
+(*Viimati muudetud 29.05.21*)
                                         """)
             
         #Annab infot boti kohta.
@@ -106,6 +105,7 @@ Käsud:
 """ + märk + küs_käsk + """ - Saad küsida Pätsi käest küsimuse.
 """ + märk + bread_käsk + """ - Saadab leiva pildi.
 """ + märk + susmeme_käsk + """ - Saadab amogus sus meeme.
+""" + märk + räägi_käsk + """ - Räägin sinu teksti.
 """)
 
         #Kontrollib igat sõnumit, kas sõna "päts"(või ka mingi teine sõna) on sees, ja ka vastab sellele(või midagi muud).
@@ -136,7 +136,7 @@ Rindele!
         #Sus
         if "sus" in message.content.lower():
                 #await message.delete()
-                print("Sõnum kustutatud")
+                #print("Sõnum kustutatud")
                 await message.reply("https://cdn.discordapp.com/attachments/846444798264213534/846466774236528710/boo7iriaha071.png")
                 print("Petis saadetud")
            
@@ -182,10 +182,16 @@ Rindele!
             exit()
             
         #Küsimuste vastaja
-        if message.content.startswith("p!k ") and message.content.endswith("?"):
-            print("Saadan vastuse")
-            await message.reply(random.choice(["Jah","Loomulikult mitte","Võibolla","Loll küsimus, ei vasta", "Tahad vangi minna või?", ";)", "https://tenor.com/view/ah-mis-sa-pl%C3%A4rad-pl%C3%A4ra-tujurikkuja-m%C3%A4rt-avandi-eesti-gif-14793565"]))
-            
+        if message.content.startswith(märk + küs_käsk) and message.content.endswith("?"):
+            if "kas" in message.content.lower():
+                print("Saadan vastuse")
+                await message.reply(random.choice(["Jah","Loomulikult mitte","Võibolla","Loll küsimus, ei vasta", "Tahad vangi minna või?", ";)"]))
+            if "mis" in message.content.lower():
+                print("Saadan vastuse")
+                await message.reply(random.choice(["Vähemalt kaks", "Su ema",""]))
+            if "miks" in message.content.lower():
+                print("Saadan vastuse")
+                await message.reply(random.choice(["Sest koera nimi on Rex","Seks", "Kuna Eesti on võimas", "Sest tal suured tissid"]))
             
         #Saadab leiva meme'i
         if message.content == märk + bread_käsk:
@@ -198,9 +204,22 @@ Rindele!
         if message.content == märk + susmeme_käsk:
             with open("sus_meme.txt") as f2:
                 sus_lingid = f2.read().splitlines()
+                await message.delete()
                 #print(lingid)
                 print("Saadan sus meemi")
                 await message.channel.send(random.choice(sus_lingid))
+                
+            #Ütleb seda mida kasutaja ütleb talle.
+        if message.content.startswith(märk + räägi_käsk):
+            räägi_info = message.content.split(" ")
+            #räägi_tekst = räägi_info[1]
+            räägi_info.remove("p!r")
+            await message.delete()
+            #print(räägi_info)
+            räägi_tekst = " ".join(räägi_info)
+            print("Räägin " + str(räägi_tekst))
+            #await message.channel.send(str(räägi_info)[1:-1])
+            await message.channel.send(räägi_tekst)
                 
 #Kasutab tookenid, et boti sisse saada.
 client = MyClient()
