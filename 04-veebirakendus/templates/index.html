@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Juhusliku arvu generaator</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
+    </head>
+    <body>
+        <h1>Juhusliku arvu generaator</h1>
+        <h2>Sinu juhuslik arv on: {{arv}}</h2>
+        <form action=".">
+            <label for="miinimum">Alampiir:</label>
+            <input id="miinimum" name="miinimum" type="number" value={{miinimum}}><br>
+            <label for="maksimum">Ülempiir:</label>
+            <input id="maksimum" name="maksimum" type="number" value={{maksimum}}><br>
+            <input type="submit" value="Genereeri">
+        </form>
+    </body>
+</html>
